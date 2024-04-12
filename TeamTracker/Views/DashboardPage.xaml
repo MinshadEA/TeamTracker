@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TeamTracker.Views.DashboardPage"
+             xmlns:fontawesome="clr-namespace:FontAwesome"
+             Title="DashboardPage">
+    <Shell.TitleView>
+       <Label
+            Grid.Column="0"
+            Text="Home"
+            HorizontalOptions="Start"
+            VerticalOptions="Center"
+            TextColor="{AppThemeBinding Dark={StaticResource White},Light={StaticResource Dark}}"
+            FontSize="Medium" />
+  </Shell.TitleView>
+     <Grid
+        Margin="15,10"
+         RowSpacing="10"
+        RowDefinitions="Auto,*">
+             <Border
+                 Grid.Row="0"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                StrokeShape="RoundRectangle 10"
+                Stroke="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}} "
+                BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100Brush},Light={StaticResource Gray100Brush}}">
+                    <Border.Shadow>
+                    <Shadow
+                        Brush="{AppThemeBinding Dark={StaticResource Gray600Brush},Light={StaticResource Gray100}}"
+                        Offset="7,7"
+                        Radius="10"
+                        Opacity="1"/>
+                    </Border.Shadow>
+                <SearchBar
+                    Margin="0,5,0,-1"
+                    HorizontalOptions="FillAndExpand"
+                    HorizontalTextAlignment="Start"
+                    TextChanged="SearchBar_TextChanged"
+                    Placeholder="Search"
+                    Text="{Binding UserName}"/>
+            </Border>
+         <RefreshView
+             Grid.Row="1"
+            BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900},Light={StaticResource Gray100Brush}}"
+            Command="{Binding RefreashCommand}"
+            IsRefreshing="{Binding IsRefreash}"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+             <ScrollView
+                 VerticalScrollBarVisibility="Never">
+                    <StackLayout
+                        x:Name="UsersListBindableView"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        BindableLayout.ItemsSource="{Binding UsersList.data}"
+                        Orientation="Vertical">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                 <Border
+                                    Margin="0,7"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Start"
+                                    StrokeShape="RoundRectangle 10"
+                                    Stroke="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}}"
+                                    BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100Brush},Light={StaticResource Gray100Brush}}">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference UsersListBindableView}, Path=BindingContext.NavigateToDetailPageCommand}" CommandParameter="{Binding}" ></TapGestureRecognizer>
+                                    </Border.GestureRecognizers>
+                                        <Border.Shadow>
+                                        <Shadow
+                                            Brush="{AppThemeBinding Dark={StaticResource Gray600Brush},Light={StaticResource Gray100}}"
+                                            Offset="7,7"
+                                            Radius="10"
+                                            Opacity="1"/>
+                                        </Border.Shadow>
+                                    <Grid
+                                        Margin="15"
+                                        ColumnDefinitions="Auto,*,Auto"
+                                        ColumnSpacing="15"
+                                        RowDefinitions="Auto,Auto">
+                                        <Image
+                                            Grid.Column="0"
+                                            Grid.RowSpan="2"
+                                            VerticalOptions="Center"
+                                            Aspect="AspectFill"
+                                            HeightRequest="60"
+                                            WidthRequest="60"
+                                            Source="{Binding Avatar}">
+                                            <Image.Clip>
+                                                <EllipseGeometry RadiusX="30" RadiusY="30" Center="30,30" />
+                                            </Image.Clip>
+                                        </Image>
+                                            <Label
+                                                Grid.Column="1"
+                                                Grid.Row="0"
+                                                VerticalOptions="Center">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding First_name}"
+                                                              FontFamily="FT-B" FontSize="Medium"
+                                                              TextColor="{AppThemeBinding Dark={StaticResource Gray200},Light={StaticResource Gray900}}"/>
+                                                        <Span Text=" "/>
+                                                        <Span Text="{Binding Last_name}"
+                                                              FontFamily="FT-B" FontSize="Medium"
+                                                              TextColor="{AppThemeBinding Dark={StaticResource Gray200},Light={StaticResource Gray900}}"/>
+                                                    </FormattedString>
+
+                                                </Label.FormattedText>
+                                            </Label>
+                                        <Label
+                                            Grid.Column="1"
+                                            Grid.Row="1"
+                                            VerticalOptions="Center"
+                                            Text="{Binding Email}"
+                                            TextColor="{AppThemeBinding Dark={StaticResource Gray200},Light={StaticResource Gray400}}"
+                                            FontSize="Small"/>
+                                         <Border
+                                             Grid.Column="2"
+                                             Grid.RowSpan="2"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                             HeightRequest="20"
+                                            WidthRequest="20"
+                                            StrokeShape="RoundRectangle 10"
+                                            Stroke="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}} "
+                                            BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100Brush},Light={StaticResource Gray100Brush}}">
+                                             <Border.Shadow>
+                                                <Shadow
+                                                    Brush="{AppThemeBinding Dark={StaticResource Gray900Brush},Light={StaticResource Gray100}}"
+                                                    Offset="7,7"
+                                                    Radius="10"
+                                                    Opacity="1"/>
+                                             </Border.Shadow>
+                                             <Label 
+                                                FontFamily="FA-B"
+                                                FontSize="10"
+                                                HorizontalOptions="Center"
+                                                VerticalOptions="Center"
+                                                Text="{x:Static fontawesome:FontAwesomeIcons.AngleRight}" 
+                                                TextColor="{AppThemeBinding Light={x:StaticResource Blue200Accent}, Dark={x:StaticResource Blue200Accent}}"/>
+                                        </Border>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+            </ScrollView>
+         </RefreshView>
+    </Grid>
+</ContentPage>

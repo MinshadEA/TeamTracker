@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TeamTracker.Views.UsersDetailPage"
+    xmlns:fontawesome="clr-namespace:FontAwesome"
+    Shell.TitleColor="Red"
+    Title="UsersDetailPage">
+    <Shell.TitleView>
+    <Grid
+        ColumnDefinitions="Auto,*">
+      <Label
+          Grid.Column="0"
+        Text="User Detail"
+        HorizontalOptions="Start"
+        VerticalOptions="Center"
+        TextColor="{AppThemeBinding Dark={StaticResource White},Light={StaticResource Dark}}"
+        FontSize="Medium" />
+        <Button
+            Margin="5,0"
+            Grid.Column="1"
+            HorizontalOptions="End"
+            VerticalOptions="Center"
+            BackgroundColor="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}}"
+            TextColor="{AppThemeBinding Dark={StaticResource Gray200},Light={StaticResource Gray600}}"
+            HeightRequest="40"
+            WidthRequest="40"
+            CornerRadius="20"
+            FontSize="Medium"
+            IsVisible="{Binding IsEditIconVisible}"
+            Command="{Binding EnableEditCommand}"
+            Padding="0"
+            Text="{x:Static fontawesome:FontAwesomeIcons.Pen}"
+            FontFamily="FA-B"/>
+    </Grid>
+  </Shell.TitleView>
+    <Grid
+        Margin="15"
+        RowSpacing="25"
+        RowDefinitions="Auto,Auto,Auto,Auto,*"
+        VerticalOptions="FillAndExpand">
+         <Image
+            Grid.Row="0"
+            Aspect="AspectFill"
+            HeightRequest="120"
+            WidthRequest="120"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Source="{Binding SelectedUserData.data.Avatar}">
+            <Image.Clip>
+                <EllipseGeometry RadiusX="60" RadiusY="60" Center="60,60" />
+            </Image.Clip>
+        </Image>
+         <Frame
+            Grid.Row="0"
+            HeightRequest="40"
+            WidthRequest="40"
+            HorizontalOptions="Center"
+            VerticalOptions="End"
+            Margin="0,0,-50,-10"
+            IsVisible="{Binding IsEditable}"
+            CornerRadius="20"
+            Padding="0"
+            BorderColor="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}} "
+            BackgroundColor="{AppThemeBinding Dark={StaticResource Gray900},Light={StaticResource Gray100Brush}}">
+             <Frame.GestureRecognizers>
+                 <TapGestureRecognizer Command="{Binding EditProfileImageCommand}"/>
+             </Frame.GestureRecognizers>
+              <Frame.Shadow>
+                    <Shadow
+                        Brush="{AppThemeBinding Dark={StaticResource Gray600Brush},Light={StaticResource Gray100}}"
+                        Offset="7,7"
+                        Radius="10"
+                        Opacity="1"/>
+                    </Frame.Shadow>
+            <Label 
+                FontFamily="FA-B"
+                FontSize="Small"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Pen}" 
+                TextColor="{AppThemeBinding Light={x:StaticResource Gray900}, Dark={x:StaticResource Gray200}}"/>
+        </Frame>
+        <VerticalStackLayout
+            Grid.Row="1">
+            <Label
+                Margin="15,0"
+                Text="First Name"
+                TextColor="{AppThemeBinding Dark={StaticResource Gray300},Light={StaticResource Gray400}}"
+                FontSize="Small"/>
+            <Border
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                StrokeShape="RoundRectangle 10"
+                Stroke="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}} "
+                BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100Brush},Light={StaticResource Gray100Brush}}">
+                    <Border.Shadow>
+                    <Shadow
+                        Brush="{AppThemeBinding Dark={StaticResource Gray600Brush},Light={StaticResource Gray100}}"
+                        Offset="7,7"
+                        Radius="10"
+                        Opacity="1"/>
+                    </Border.Shadow>
+                <Entry
+                    Margin="15,10"
+                    Placeholder="Enter first name"
+                    IsReadOnly="{Binding IsEditable,Converter={StaticResource InvertedBoolConverter}}"
+                    Text="{Binding SelectedUserData.data.First_name}"/>
+            </Border>
+        </VerticalStackLayout>
+        <VerticalStackLayout
+            Grid.Row="2">
+            <Label
+                Margin="15,0"
+                Text="Last Name"
+                TextColor="{AppThemeBinding Dark={StaticResource Gray300},Light={StaticResource Gray400}}"
+                FontSize="Small"/>
+            <Border
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                StrokeShape="RoundRectangle 10"
+                Stroke="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}} "
+                BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100Brush},Light={StaticResource Gray100Brush}}">
+                    <Border.Shadow>
+                    <Shadow
+                        Brush="{AppThemeBinding Dark={StaticResource Gray600Brush},Light={StaticResource Gray100}}"
+                        Offset="7,7"
+                        Radius="10"
+                        Opacity="1"/>
+                    </Border.Shadow>
+                <Entry
+                    Margin="15,10"
+                    Placeholder="Enter last name"
+                    IsReadOnly="{Binding IsEditable,Converter={StaticResource InvertedBoolConverter}}"
+                    Text="{Binding SelectedUserData.data.Last_name}"/>
+            </Border>
+        </VerticalStackLayout>
+        <VerticalStackLayout
+            Grid.Row="3">
+            <Label
+                Margin="15,0"
+                Text="Email"
+                TextColor="{AppThemeBinding Dark={StaticResource Gray300},Light={StaticResource Gray400}}"
+                FontSize="Small"/>
+            <Border
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                StrokeShape="RoundRectangle 10"
+                Stroke="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}} "
+                BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100Brush},Light={StaticResource Gray100Brush}}">
+                    <Border.Shadow>
+                    <Shadow
+                        Brush="{AppThemeBinding Dark={StaticResource Gray600Brush},Light={StaticResource Gray100}}"
+                        Offset="7,7"
+                        Radius="10"
+                        Opacity="1"/>
+                    </Border.Shadow>
+                <Entry
+                    Margin="15,10"
+                    Placeholder="Enter email"
+                    IsReadOnly="{Binding IsEditable,Converter={StaticResource InvertedBoolConverter}}"
+                    Text="{Binding SelectedUserData.data.Email}"/>
+            </Border>
+        </VerticalStackLayout>
+        <Button
+            IsVisible="{Binding IsEditable}"
+            Grid.Row="4"
+            VerticalOptions="End"
+            Margin="10,0"
+            Command="{Binding UpdateCommand}"
+            Text="Update"/>
+    </Grid>
+</ContentPage>

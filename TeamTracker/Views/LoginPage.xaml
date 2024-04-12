@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TeamTracker.Views.LoginPage"
+             Title="LoginPage"
+             Shell.NavBarIsVisible="False"
+             xmlns:fontawesome="clr-namespace:FontAwesome"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:resources="clr-namespace:TeamTracker.LanguageResources"
+             xmlns:viewmodels="clr-namespace:TeamTracker.ViewModels"
+             x:DataType="viewmodels:LoginViewModel"
+             BackgroundColor="{AppThemeBinding Dark={StaticResource Black},Light={StaticResource White}}">
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{AppThemeBinding Dark={StaticResource Black},Light={StaticResource White}}"
+                                   StatusBarStyle="LightContent" />
+    </ContentPage.Behaviors>
+    <Grid
+        RowDefinitions="4*,6*"
+        Margin="0,0"
+        RowSpacing="10"
+        Padding="20">
+        <Grid.Background>
+        <!-- StartPoint defaults to (0,0) -->
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="{AppThemeBinding Dark={StaticResource Black},Light={StaticResource White}}"
+                          Offset="0.1" />
+            <GradientStop Color="{AppThemeBinding Dark={StaticResource Gray950},Light={StaticResource Gray100}}"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </Grid.Background>
+        <Grid
+            Grid.Row="0"
+            RowDefinitions="Auto,*"
+            VerticalOptions="Center"
+            ColumnDefinitions="6*,4*">
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="{x:Static resources:AppResources.greeting_lebel}"
+                Style="{StaticResource LoginTitle}"/>
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="{x:Static resources:AppResources.login_placeholder}"
+                Style="{StaticResource LoginSubTitle}"/>
+             <Label 
+                Grid.Column="1"
+                Grid.RowSpan="2"
+                Grid.Row="0"
+                FontFamily="FA-B"
+                FontSize="80"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                Text="{x:Static fontawesome:FontAwesomeIcons.Users}" 
+                TextColor="{AppThemeBinding Light={x:StaticResource Gray900}, Dark={x:StaticResource Gray200}}"/>
+        </Grid>
+        <VerticalStackLayout
+            Grid.Row="1"
+            Spacing="20"
+            VerticalOptions="Start">
+            <VerticalStackLayout>
+                <Label
+                    Margin="15,0"
+                    Text="{x:Static resources:AppResources.username_label}"
+                    TextColor="{AppThemeBinding Dark={StaticResource Gray300},Light={StaticResource Gray400}}"
+                    FontSize="Small"/>
+                <Border
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    StrokeShape="RoundRectangle 10"
+                    Stroke="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}} "
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100Brush},Light={StaticResource Gray100Brush}}">
+                     <Border.Shadow>
+                        <Shadow
+                            Brush="{AppThemeBinding Dark={StaticResource Gray600Brush},Light={StaticResource Gray100}}"
+                            Offset="7,7"
+                            Radius="10"
+                            Opacity="1"/>
+                     </Border.Shadow>
+                    <Entry
+                        x:Name="email"
+                        Margin="15,10"
+                        Placeholder="{x:Static resources:AppResources.username_placeholder}"
+                        Text="{Binding UserName}">
+                        <Entry.Behaviors>
+                            <toolkit:EmailValidationBehavior
+                                IsValid="{Binding IsEmailValid}"
+                                Flags="ValidateOnValueChanged" />
+                        </Entry.Behaviors>
+                    </Entry>
+                </Border>
+            </VerticalStackLayout>
+            <VerticalStackLayout>
+                <Label
+                    Margin="15,0"
+                    Text="{x:Static resources:AppResources.password_label}"
+                    TextColor="{AppThemeBinding Dark={StaticResource Gray300},Light={StaticResource Gray400}}"
+                    FontSize="Small"/>
+               <Border
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    StrokeShape="RoundRectangle 10"
+                    Stroke="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}} "
+                    BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100Brush},Light={StaticResource Gray100Brush}}">
+                     <Border.Shadow>
+                        <Shadow
+                            Brush="{AppThemeBinding Dark={StaticResource Gray600Brush},Light={StaticResource Gray100}}"
+                            Offset="7,7"
+                            Radius="10"
+                            Opacity="1"/>
+                     </Border.Shadow>
+                    <Entry
+                        x:Name="password"
+                        Margin="15,10"
+                        Placeholder="{x:Static resources:AppResources.password_placeholder}"
+                        Text="{Binding Password}"/>
+                </Border>
+
+            </VerticalStackLayout>
+            
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                Spacing="0">
+                <CheckBox IsChecked="{Binding IsTermsAndCondetionChecked}"/>
+                <Label
+                    VerticalOptions="Center"
+                    FontSize="Caption"
+                    TextDecorations="Underline"
+                    Text="{x:Static resources:AppResources.tems_and_condetions}"></Label>
+        </HorizontalStackLayout>
+        <Grid>
+            <Button
+                Margin="10,0"
+                Text="{x:Static resources:AppResources.login_button_label}"
+                TextColor="{AppThemeBinding Light={StaticResource Gray400}, Dark={StaticResource Gray600}}"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray300}}"
+                IsEnabled="False"/>
+            <Button
+                Margin="10,0"
+                Command="{Binding ValidateCommand}"
+                Text="{x:Static resources:AppResources.login_button_label}"
+                IsVisible="False">
+                <Button.Triggers>
+                     <MultiTrigger TargetType="Button">  
+                    <MultiTrigger.Conditions>  
+                        <BindingCondition Binding="{Binding UserName,Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" Value="True"/>  
+                        <BindingCondition Binding="{Binding Password,Converter={StaticResource IsStringNotNullOrWhiteSpaceConverter}}" Value="True"/>
+                        <BindingCondition Binding="{Binding IsTermsAndCondetionChecked}" Value="true"/>
+                        <BindingCondition Binding="{Binding IsEmailValid}" Value="true"/> 
+                    </MultiTrigger.Conditions>  
+                    <Setter Property="IsVisible" Value="True"/>  
+                </MultiTrigger>  
+                </Button.Triggers>
+            </Button>
+        </Grid>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

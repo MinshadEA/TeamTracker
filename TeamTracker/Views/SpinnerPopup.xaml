@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="TeamTracker.Views.SpinnerPopup">
+    <Border
+        HorizontalOptions="CenterAndExpand"
+        VerticalOptions="CenterAndExpand"
+        StrokeShape="RoundRectangle 0"
+        Stroke="{AppThemeBinding Dark={StaticResource Gray600},Light={StaticResource Gray100}} "
+        BackgroundColor="{AppThemeBinding Dark={StaticResource Gray100Brush},Light={StaticResource Gray100Brush}}">
+            <Border.Shadow>
+            <Shadow
+                Brush="{AppThemeBinding Dark={StaticResource Gray600Brush},Light={StaticResource Gray100}}"
+                Offset="7,7"
+                Radius="10"
+                Opacity="1"/>
+            </Border.Shadow>
+            <VerticalStackLayout Margin="10" Spacing="10">
+                <ActivityIndicator IsRunning="True" />
+                <Label Text="{Binding IsLoadingText}" />
+            </VerticalStackLayout>
+        </Border>
+</toolkit:Popup>
