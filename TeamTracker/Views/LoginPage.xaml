@@ -12,7 +12,7 @@
              BackgroundColor="{AppThemeBinding Dark={StaticResource Black},Light={StaticResource White}}">
     <ContentPage.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{AppThemeBinding Dark={StaticResource Black},Light={StaticResource White}}"
-                                   StatusBarStyle="LightContent" />
+                                   StatusBarStyle="DarkContent" />
     </ContentPage.Behaviors>
     <Grid
         RowDefinitions="4*,6*"
