@@ -8,7 +8,7 @@ public partial class DashboardPage : ContentPage
     public DashboardPage()
 	{
 		InitializeComponent();
-        _dashboardViewModel = new DashboardViewModel();
+        _dashboardViewModel = new DashboardViewModel(App.NetConnectivity);
         this.BindingContext = _dashboardViewModel;
 	}
     void SearchBar_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)

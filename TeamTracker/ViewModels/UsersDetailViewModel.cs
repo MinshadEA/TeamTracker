@@ -20,10 +20,13 @@ namespace TeamTracker.ViewModels
         private bool isEditable = false;
         [ObservableProperty]
         private bool isEditIconVisible = false;
+        [ObservableProperty]
+        private IConnectivity _connectivity;
         #endregion
 
-        public UsersDetailViewModel()
+        public UsersDetailViewModel(IConnectivity connectivity)
         {
+            Connectivity = connectivity;
             IsLoadingText = "Loading...";
             IsEditIconVisible = false;
             LoadUserDetail("2");
@@ -143,10 +146,17 @@ namespace TeamTracker.ViewModels
         }
         private async Task LoadUserDetail(string id)
         {
-            var popup = new SpinnerPopup(this);
-            Application.Current.MainPage.ShowPopup(popup);
-            SelectedUserData = await GetUserDetail(id);
-            popup.Close();
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                var popup = new SpinnerPopup(this);
+                Application.Current.MainPage.ShowPopup(popup);
+                SelectedUserData = await GetUserDetail(id);
+                popup.Close();
+            }
+            else
+            {
+                Application.Current.MainPage.DisplayAlert("No Internet", "No internet found. please try again!", "ok");
+            }
         }
         #endregion
        

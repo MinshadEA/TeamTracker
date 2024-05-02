@@ -17,10 +17,16 @@ namespace TeamTracker.ViewModels
         #region Properties
         [ObservableProperty]
         private UsersListModel usersList = new UsersListModel();
+
         [ObservableProperty]
         private Users _selectedUserData;
+
         [ObservableProperty]
         private bool isRefreash;
+
+        [ObservableProperty]
+        private IConnectivity _connectivity;
+
         private string selectedUserDetail;
         public string SelectedUserDetail
         {
@@ -35,8 +41,9 @@ namespace TeamTracker.ViewModels
         }
         #endregion
 
-        public DashboardViewModel()
+        public DashboardViewModel(IConnectivity connectivity)
 		{
+            Connectivity = connectivity;
             LoadUsers();
 		}
 
@@ -55,16 +62,23 @@ namespace TeamTracker.ViewModels
         }
         private async Task LoadUsers()
         {
-            IsLoadingText = "Loading Users...";
-            var popup = new SpinnerPopup(this);
-            if (!isRefreash)
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                Application.Current.MainPage.ShowPopup(popup);
+                IsLoadingText = "Loading Users...";
+                var popup = new SpinnerPopup(this);
+                if (!isRefreash)
+                {
+                    Application.Current.MainPage.ShowPopup(popup);
+                }
+                UsersList = await GetUsersList();
+                if (!isRefreash)
+                {
+                    popup.Close();
+                }
             }
-            UsersList = await GetUsersList();
-            if (!isRefreash)
+            else
             {
-                popup.Close();
+                Application.Current.MainPage.DisplayAlert("No Internet", "No internet found. please try again!", "ok");
             }
         }
 

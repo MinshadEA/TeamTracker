@@ -6,9 +6,11 @@ namespace TeamTracker;
 
 public partial class App : Application
 {
-	public App()
+    public static IConnectivity NetConnectivity { get; private set; }
+	public App(IConnectivity connectivity)
 	{
 		InitializeComponent();
+        NetConnectivity = connectivity;
         //Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("ar");
         MainPage = new LoginPage();
 

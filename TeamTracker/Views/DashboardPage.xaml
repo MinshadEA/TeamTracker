@@ -15,7 +15,7 @@
   </Shell.TitleView>
      <Grid
         Margin="15,10"
-         RowSpacing="10"
+        RowSpacing="10"
         RowDefinitions="Auto,*">
              <Border
                  Grid.Row="0"

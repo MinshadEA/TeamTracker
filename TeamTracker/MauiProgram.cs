@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.Platform;
+using TeamTracker.ViewModels;
 using TeamTracker.Views;
 
 namespace TeamTracker;
@@ -27,6 +28,7 @@ public static class MauiProgram
             });
         RegisterRoutes();
         InitializeCustomRenders();
+        builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
         return builder.Build();
 	}
 

@@ -7,7 +7,7 @@ public partial class UsersDetailPage : ContentPage
 	public UsersDetailPage()
 	{
 		InitializeComponent();
-		this.BindingContext = new UsersDetailViewModel();
+		this.BindingContext = new UsersDetailViewModel(App.NetConnectivity);
 
     }
 }
